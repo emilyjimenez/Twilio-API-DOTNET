@@ -1,0 +1,45 @@
+﻿@model ApiWithMvc.Models.Contact
+
+@{
+    Layout = "_Layout";
+}
+
+<h2>Add a contact</h2>
+<hr />
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.LabelFor(model => model.Friendly_Name, "Name")
+        @Html.TextBoxFor(model => model.Friendly_Name)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Phone_Number, "Phone Number")
+        @Html.TextBoxFor(model => model.Phone_Number)
+    </div>
+    <input type="submit" value="Add!" />
+}
+
+@Html.ActionLink("Back home", "Index")
+
+<script>
+    $(document).ready(function() {
+	    $("form").submit(function (event) {
+	        event.preventDefault();
+	        $.ajax({
+	            url: '@Url.Action("AddContactForm")',
+	            type: 'POST',
+	            dataType: 'text',
+	            data: $(this).serialize(),
+                success: function(result) {
+	                alert(`
+	                    You will recieve a call shortly.
+                        Enter your verification code: ${result}
+	                `);
+	            },
+	            failure: function() {
+                    alert("I just don't know what went wrong :C");
+	            }
+	        });
+	    });
+	});
+</script>

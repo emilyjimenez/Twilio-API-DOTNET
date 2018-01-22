@@ -1,0 +1,19 @@
+﻿@using ApiWithMvc.Models
+@model List<Contact>
+
+@{
+    Layout = "_Layout";
+}
+
+<h2>Awesome Text Messaging App!</h2>
+<hr />
+@Html.ActionLink("Send a New Message", "SendMessage") <br />
+@Html.ActionLink("View Message History", "GetMessages")
+<hr />
+<h3>Current Contacts</h3>
+@foreach (Contact contact in Model)
+{
+    <p>@contact.Friendly_Name (@contact.Phone_Number)</p>
+}
+@Html.ActionLink("Add New Contact", "AddContactForm")
+<hr />
