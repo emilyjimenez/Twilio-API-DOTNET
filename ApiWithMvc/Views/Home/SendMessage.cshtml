@@ -1,4 +1,5 @@
-﻿@model ApiWithMvc.Models.Message
+﻿@using ApiWithMvc.Models
+@model Message
 
 @{
     Layout = "_Layout";
@@ -8,15 +9,15 @@
 <hr />
 @using (Html.BeginForm())
 {
-    @Html.LabelFor(model => model.To)
-    @Html.TextBoxFor(model => model.To)
-
-    @Html.LabelFor(model => model.From)
-    @Html.TextBoxFor(model => model.From)
-
-    @Html.LabelFor(model => model.Body)
-    @Html.TextBoxFor(model => model.Body)
-
+    <div>
+        @Html.LabelFor(model => model.To)
+        @Html.DropDownListFor(model => model.To, (IEnumerable<SelectListItem>)ViewBag.Contacts)
+    </div>
+    <br />
+    <div>
+        @Html.LabelFor(model => model.Body)
+        @Html.TextAreaFor(model => model.Body)
+    </div>
     <input type="submit" value="Send!" />
 }
 

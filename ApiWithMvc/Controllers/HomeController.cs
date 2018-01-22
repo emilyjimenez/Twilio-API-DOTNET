@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ApiWithMvc.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ApiWithMvc.Controllers
 {
@@ -35,12 +36,15 @@ namespace ApiWithMvc.Controllers
 
         public IActionResult SendMessage()
         {
+            List<Contact> contacts = Contact.GetContacts();
+            ViewBag.Contacts = new SelectList(contacts, "Phone_Number", "Friendly_Name");
             return View();
         }
 
         [HttpPost]
         public IActionResult SendMessage(Message newMessage)
         {
+            newMessage.From = "+19712137542";
             newMessage.Send();
             return RedirectToAction("Index");
         }
